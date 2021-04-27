@@ -133,7 +133,12 @@ function draw() {
 
   // MOVING STUFF
 
-  if (mouseIsPressed || touches.length !== 0) {
+  if (
+    mouseIsPressed ||
+    keyIsDown(32) ||
+    keyIsDown(ENTER) ||
+    touches.length !== 0
+  ) {
     // Arrow moves as long as the mouse is pressed or screen is touched
     obj.vel = constrain(obj.vel + obj.acc, 0, height / 40.0);
     timer = 180;
@@ -207,7 +212,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
-  if (died && keyCode == RETURN) {
+  if (died && (keyCode == RETURN || keyCode == 32)) {
     if (!leaderboard) {
       highscores.push([textbox.value() || "Anonymous", int(score / 100)]);
       textbox.hide();
@@ -236,7 +241,7 @@ function gameOver() {
   textSize(width * 0.03);
   text("Enter name:", -width / 10, -height * 0.3);
   textSize(width * 0.05);
-  text("Touch to show Leaderboard", 0, -height * 0.2);
+  text("Press to show Leaderboard", 0, -height * 0.2);
 }
 
 function scores() {
@@ -245,7 +250,7 @@ function scores() {
   textSize(width * 0.08);
   text("Leaderboard", 0, -height * 0.7);
   textSize(width * 0.05);
-  text("Touch to Restart", 0, -height * 0.2);
+  text("Press to Restart", 0, -height * 0.2);
 
   textSize(width * 0.05);
   fill(255);
